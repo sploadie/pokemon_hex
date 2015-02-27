@@ -6,13 +6,12 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/26 17:40:16 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/27 18:07:36 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-#ifndef FDF_H
-# define FDF_H
+#ifndef POKEMON_HEX_H
+# define POKEMON_HEX_H
 
 # include <mlx.h>
 # include <stdio.h>
