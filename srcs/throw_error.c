@@ -6,8 +6,14 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/26 17:46:49 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/27 11:50:11 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
+
+void	throw_error(char *str)
+{
+	perror(str);
+	exit(1);
+}

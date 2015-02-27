@@ -6,8 +6,14 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/26 17:46:06 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/27 17:19:27 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
+
+void	gen_img(t_env *env)
+{
+	clear_img(env->win);
+	//Action
+}
