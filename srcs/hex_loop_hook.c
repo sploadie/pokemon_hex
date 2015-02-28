@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/27 16:40:00 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 14:06:13 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		hex_loop_hook(void *env_ptr)
 	displaying = 1;
 	env->update = 0;
 	ft_putstr("\033[2K\rRedrawing Image... ");
-	//Action
+	gen_view(env);
 	ft_putstr(" done.");
 	displaying = 0;
 	return (0);

@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/20 16:35:37 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/02/26 18:56:20 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/02/28 14:25:56 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =			pokemon_hex
 
 CC =			gcc
 
-FLAGS =			-Wall -Werror -Wextra -O3
+FLAGS =			-Wall -Werror -Wextra -g
 
 HEADER =		pokemon_hex.h
 
@@ -33,17 +33,18 @@ FT_LIB_DIR =	./libft/
 SRC_DIR =		./srcs/
 
 SRC_COMPILED =	main.o \
-				gen_img.o \
+				gen_view.o \
+				new_img.o \
 				throw_error.o \
 				check_malloc.o \
 				gen_mlx_window.o \
 				gen_default_camera.o \
-				new_img.o \
 				hex_expose_hook.o \
 				hex_key_hook.o \
 				hex_mouse_hook.o \
 				hex_loop_hook.o \
-				clear_img.o
+				clear_img.o \
+				pokemon_data.o
 
 COMPILED =		$(SRC_COMPILED)
 

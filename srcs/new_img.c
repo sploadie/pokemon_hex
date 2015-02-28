@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:43 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/27 11:51:48 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 14:31:11 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	new_img(t_win *win)
 									&(win->img_bits_per_pixel),
 									&(win->img_size_line),
 									&(win->img_endian));
-	ft_putstr("\nimg_bits_per_pixel: ");
+	ft_putstr("img_bits_per_pixel: ");
 	ft_putnbr(win->img_bits_per_pixel);
 	ft_putstr("\nimg_endian: ");
 	ft_putnbr(win->img_endian);
