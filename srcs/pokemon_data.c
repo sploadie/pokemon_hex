@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 12:48:03 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 14:33:25 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 14:57:46 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -671,8 +671,8 @@ t_poke_data	**gen_pokemon_data(void	*mlx)
 	t_poke_data	**neodata;
 	int			i;
 	int			temp;
-	char		front_file[] =	"./img/xpm/sprite_XXX_front.xpm";
-	char		back_file[] =	"./img/xpm/sprite_XXX_back.xpm";
+	char		front_file[] =	"./img/xpm-pokemon/sprite_XXX_front.xpm";
+	char		back_file[] =	"./img/xpm-pokemon/sprite_XXX_back.xpm";
 
 	neodata = check_malloc(malloc(sizeof(t_poke_data *) * (POKEMON_TOTAL + 1)));
 	neodata[0] = NULL;
@@ -691,11 +691,11 @@ t_poke_data	**gen_pokemon_data(void	*mlx)
 		neodata[i]->total		= ft_atoi(pokemon_text_data[i] + 28);
 		neodata[i]->name		= ft_strdup(pokemon_text_data[i] + 32);
 		/* Grab sprites */
-		ft_memcpy(front_file + 17, pokemon_text_data[i], 3);
+		ft_memcpy(front_file + 25, pokemon_text_data[i], 3);
 		neodata[i]->sprite_f = mlx_xpm_file_to_image(mlx, front_file, &temp, &temp);
 		if (neodata[i]->sprite_f == NULL)
 			throw_error("gen_pokemon_data");
-		ft_memcpy(back_file + 17, pokemon_text_data[i], 3);
+		ft_memcpy(back_file + 25, pokemon_text_data[i], 3);
 		neodata[i]->sprite_b = mlx_xpm_file_to_image(mlx, back_file, &temp, &temp);
 		if (neodata[i]->sprite_b == NULL)
 			throw_error("gen_pokemon_data");
