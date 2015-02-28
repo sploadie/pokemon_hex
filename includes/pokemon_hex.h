@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/27 18:07:36 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 13:21:19 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,8 @@
 # define USAGE "Usage: pokemon_hex [Arena] [Size || X Size] [Y Size] [Title]\n"
 # define DEF_X 800
 # define DEF_Y 800
-# define DEGREE 0.0174532925
 
-# define DEF_EPSILON 0.01
-# define DEF_DEPTH 200
-# define GRADIENT_SHIFT 0x0000FF
-# define EPSILON_SHIFT 0.001
+# define POKEMON_TOTAL 649
 
 typedef struct		s_win
 {
@@ -63,6 +59,21 @@ typedef struct		s_env
 	t_cam			*camera;
 	int				update;
 }					t_env;
+
+typedef struct		s_poke_data
+{
+	char			*name;
+	void			*sprite_f;
+	void			*sprite_b;
+	int				number;
+	int				hp;
+	int				attack;
+	int				defense;
+	int				sp_attack;
+	int				sp_defense;
+	int				speed;
+	int				total;
+}					t_poke_data;
 
 void				throw_error(char *str);
 void				*check_malloc(void *ret);
