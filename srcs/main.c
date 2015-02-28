@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:16 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 14:30:35 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 17:26:33 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int			main(int argc, char **argv)
 	srand(time(NULL));
 	ft_putstr("Generating pokemon database...\n");
 	env.poke_db = gen_pokemon_data(env.win->mlx);
+	ft_putstr("Generating sprite bank...\n");
+	env.sprite_bank = gen_sprite_bank(env.win->mlx);
 	ft_putstr("Generating camera...\n");
 	env.camera = gen_default_camera();
 	ft_putstr("Setting initial env values...\n");

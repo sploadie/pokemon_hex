@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/20 16:35:37 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/02/28 14:25:56 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/02/28 17:26:49 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ SRC_COMPILED =	main.o \
 				hex_mouse_hook.o \
 				hex_loop_hook.o \
 				clear_img.o \
-				pokemon_data.o
+				pokemon_data.o \
+				gen_sprite_bank.o
 
 COMPILED =		$(SRC_COMPILED)
 

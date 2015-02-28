@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 14:35:02 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 19:15:49 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,6 @@ int				hex_mouse_move_hook(int x, int y, void *env_ptr)
 	env = env_ptr;
 	env->mouse_x = x;
 	env->mouse_y = y;
-	//env->update = 1;
+	// env->update = 1;//FIXME?
 	return (0);
 }

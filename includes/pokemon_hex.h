@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 14:24:48 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/02/28 19:13:19 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,21 @@
 
 # define POKEMON_TOTAL 649
 # define POKEMON_SPRITE_SIZE 96
+
+/* SPRITE BANK MACROS */
+
+# define SPRITE_BANK_SIZE 10
+# define SPRITE_CURSOR 0
+# define SPRITE_GRASS 1
+
+/* - */
+
+typedef struct		s_sprite
+{
+	void			*img;
+	int				x;
+	int				y;
+}					t_sprite;
 
 typedef struct		s_win
 {
@@ -72,6 +87,7 @@ typedef struct		s_env
 	t_win			*win;
 	t_cam			*camera;
 	t_poke_data		**poke_db;
+	t_sprite		**sprite_bank;
 	int				mouse_x;
 	int				mouse_y;
 	int				update;
@@ -96,5 +112,6 @@ int					hex_loop_hook(void *env_ptr);
 void				gen_view(t_env *env);
 
 t_poke_data			**gen_pokemon_data(void	*mlx);
+t_sprite			**gen_sprite_bank(void *mlx);
 
 #endif
