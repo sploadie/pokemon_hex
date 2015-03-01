@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 19:21:50 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 20:08:10 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ void	gen_view(t_env *env)
 	draw_map(env);
 	put_sprite_to_image(env, env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
 	mlx_put_image_to_window(env->win->mlx, env->win->win, env->win->img, 0, 0);
+
+	// //DEBUG
+	// char str[200];
+	// write(1, str, sprintf(str, "Mouse: (%d, %d)", env->mouse_x, env->mouse_y));
+	// //DEBUG
 
 	// i = 0;
 	// while (i < 10)

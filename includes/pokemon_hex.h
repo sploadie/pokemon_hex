@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 19:33:43 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 19:58:31 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_tile
 typedef struct		s_entity
 {
 	t_sprite		*curr_sprite;
+	int				poke_id;
 	int				map_index;
 }					t_entity;
 
@@ -111,6 +112,7 @@ typedef struct		s_env
 	t_entity		**entities;
 	t_poke_data		**poke_db;
 	t_sprite		**sprite_bank;
+	int				selected_entity;
 	int				mouse_x;
 	int				mouse_y;
 	int				update;

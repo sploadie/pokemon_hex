@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/20 16:35:37 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/03/01 19:31:59 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/03/01 20:39:01 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME =			pokemon_hex
 
 CC =			gcc
 
-FLAGS =			-Wall -Werror -Wextra -O3
+FLAGS =			-Wall -Werror -Wextra -g
 
 HEADER =		pokemon_hex.h
 

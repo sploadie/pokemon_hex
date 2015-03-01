@@ -2,7 +2,7 @@
 static char *sprite_360_back[] = {
 /* columns rows colors chars-per-pixel */
 "96 96 9 1 ",
-"  c black",
+"  c #010101",
 ". c #395262",
 "X c #6A6262",
 "o c #397BA4",

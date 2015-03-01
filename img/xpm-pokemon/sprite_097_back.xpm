@@ -2,7 +2,7 @@
 static char *sprite_097_back[] = {
 /* columns rows colors chars-per-pixel */
 "96 96 14 1 ",
-"  c black",
+"  c #010101",
 ". c #6A5200",
 "X c #5A4129",
 "o c #525A6A",

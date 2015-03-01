@@ -2,7 +2,7 @@
 static char *sprite_358_front[] = {
 /* columns rows colors chars-per-pixel */
 "96 96 15 1 ",
-"  c black",
+"  c #010101",
 ". c #7B2941",
 "X c #414A6A",
 "o c #B4415A",
