@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 19:24:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 19:59:52 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 21:10:46 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_entity	**gen_entities(t_env *env)
 		neoentities[i] = check_malloc(malloc(sizeof(t_entity)));
 		neoentities[i]->curr_sprite = NULL;
 		neoentities[i]->map_index = 0;
+		neoentities[i]->rand_x = 0;
+		neoentities[i]->rand_y = 0;
 		i++;
 	}
 	//TEST MAP
@@ -38,7 +40,7 @@ t_entity	**gen_entities(t_env *env)
 		j = 0;
 		while (j < 10)
 		{
-			if (rand() % 2)
+			if (rand() % 4 == 3)
 			{
 				counter++;
 				poke_id = (rand() % POKEMON_TOTAL) + 1;

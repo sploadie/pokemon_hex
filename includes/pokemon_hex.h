@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 19:58:31 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 21:02:03 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct		s_tile
 typedef struct		s_entity
 {
 	t_sprite		*curr_sprite;
+	int				rand_x;
+	int				rand_y;
 	int				poke_id;
 	int				map_index;
 }					t_entity;

@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 20:46:06 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 21:12:30 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 				else
 					curr_entity->curr_sprite = env->poke_db[curr_entity->poke_id]->sprite_f;
 			}
-			else if (clicked_tile->entity_id)
+			else if (clicked_tile->entity_id > 0)
 			{
 				write(1, str, sprintf(str, "Selected entity %d, named %s.\n", clicked_tile->entity_id, env->poke_db[env->entities[clicked_tile->entity_id]->poke_id]->name));
 				env->selected_entity = clicked_tile->entity_id;
