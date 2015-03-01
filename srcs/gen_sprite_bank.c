@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 16:01:53 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 19:14:20 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 17:00:28 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_sprite	**gen_sprite_bank(void *mlx)
 {
 	t_sprite	**neobank;
+	int			temp;
 
 	neobank = check_malloc(malloc(sizeof(t_sprite *) * SPRITE_BANK_SIZE));
 	/* SPRITE_CURSOR */
@@ -22,10 +23,12 @@ t_sprite	**gen_sprite_bank(void *mlx)
 	neobank[SPRITE_CURSOR]->img = mlx_xpm_file_to_image(mlx, "./img/xpm-menu/cursor.xpm", &(neobank[SPRITE_CURSOR]->x), &(neobank[SPRITE_CURSOR]->y));
 	if (neobank[SPRITE_CURSOR]->img == NULL)
 		throw_error("gen_sprite_bank: SPRITE_CURSOR");
+	neobank[SPRITE_CURSOR]->img_data = (int *)mlx_get_data_addr(neobank[SPRITE_CURSOR]->img, &temp, &temp, &temp);
 	/* SPRITE_GRASS */
 	neobank[SPRITE_GRASS] = check_malloc(malloc(sizeof(t_sprite)));
 	neobank[SPRITE_GRASS]->img = mlx_xpm_file_to_image(mlx, "./img/xpm-menu/grass.xpm", &(neobank[SPRITE_GRASS]->x), &(neobank[SPRITE_GRASS]->y));
 	if (neobank[SPRITE_GRASS]->img == NULL)
 		throw_error("gen_sprite_bank: SPRITE_GRASS");
+	neobank[SPRITE_GRASS]->img_data = (int *)mlx_get_data_addr(neobank[SPRITE_GRASS]->img, &temp, &temp, &temp);
 	return (neobank);
 }

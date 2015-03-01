@@ -6,11 +6,12 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:16 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 17:26:33 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 17:29:03 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
+// #include </opt/X11/include/X11/cursorfont.h>
 
 t_win	*first_window(void *mlx, int argnum, char **argv)
 {
@@ -48,6 +49,7 @@ int			main(int argc, char **argv)
 		env.win = first_window(mlx_init(), argc - 1, NULL);
 	else
 		env.win = first_window(mlx_init(), argc - 1, argv + 1);
+	// XCreateFontCursor(env.win->mlx, 0);
 	ft_putstr("Generating srand...\n");
 	srand(time(NULL));
 	ft_putstr("Generating pokemon database...\n");
@@ -55,7 +57,7 @@ int			main(int argc, char **argv)
 	ft_putstr("Generating sprite bank...\n");
 	env.sprite_bank = gen_sprite_bank(env.win->mlx);
 	ft_putstr("Generating camera...\n");
-	env.camera = gen_default_camera();
+	env.cam = gen_default_camera();
 	ft_putstr("Setting initial env values...\n");
 	env.mouse_x = 0;
 	env.mouse_y = 0;

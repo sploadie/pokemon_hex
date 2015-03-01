@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/02/28 19:13:19 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 16:41:57 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 typedef struct		s_sprite
 {
 	void			*img;
+	int				*img_data;
 	int				x;
 	int				y;
 }					t_sprite;
@@ -70,8 +71,8 @@ typedef struct		s_cam
 typedef struct		s_poke_data
 {
 	char			*name;
-	void			*sprite_f;
-	void			*sprite_b;
+	t_sprite		*sprite_f;
+	t_sprite		*sprite_b;
 	int				number;
 	int				hp;
 	int				attack;
@@ -85,7 +86,7 @@ typedef struct		s_poke_data
 typedef struct		s_env
 {
 	t_win			*win;
-	t_cam			*camera;
+	t_cam			*cam;
 	t_poke_data		**poke_db;
 	t_sprite		**sprite_bank;
 	int				mouse_x;

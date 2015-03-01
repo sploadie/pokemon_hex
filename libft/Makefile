@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/09/09 10:54:05 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/02/28 14:26:01 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/03/01 14:55:43 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FT_LIB =		lib$(FT_LIB_NAME).a
 
 CC =			gcc
 
-FLAGS =			-Wall -Werror -Wextra -g
+FLAGS =			-Wall -Werror -Wextra -O3
 
 HEADER =		libft.h
 
