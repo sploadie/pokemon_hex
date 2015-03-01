@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 12:48:03 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 17:00:17 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 19:44:53 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -707,5 +707,21 @@ t_poke_data	**gen_pokemon_data(void	*mlx)
 		neodata[i]->sprite_b->img_data = (int *)mlx_get_data_addr(neodata[i]->sprite_b->img, &temp, &temp, &temp);
 		i++;
 	}
+	// //DEBUG
+	// int j;
+	// char str[20];
+	// i = 0;
+	// while (i < 96)
+	// {
+	// 	j = 0;
+	// 	while (j < 96)
+	// 	{
+	// 		write(1, str, sprintf(str, "%x ", neodata[67]->sprite_f->img_data[(i * 96) + j]));
+	// 		j++;
+	// 	}
+	// 	write(1, "\n", 1);
+	// 	i++;
+	// }
+	// //DEBUG
 	return (neodata);
 }

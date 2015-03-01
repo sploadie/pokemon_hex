@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 16:41:57 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 19:33:43 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 
 # define POKEMON_TOTAL 649
 # define POKEMON_SPRITE_SIZE 96
+# define MAP_WIDTH 100
+# define MAP_HEIGHT 100
+# define MAX_ENTITIES 100
 
 /* SPRITE BANK MACROS */
 
@@ -54,13 +57,30 @@ typedef struct		s_win
 	char			*title;
 	int				width;
 	int				height;
-	void			*clear_img;
 	void			*img;
 	int				*img_data;
+	int				*sprite_data;
 	int				img_bits_per_pixel;
 	int				img_size_line;
 	int				img_endian;
 }					t_win;
+
+typedef struct		s_tile
+{
+	int				type;
+	int				id;
+	int				x;
+	int				y;
+	int				sprite_x;
+	int				sprite_y;
+	int				entity_id;
+}					t_tile;
+
+typedef struct		s_entity
+{
+	t_sprite		*curr_sprite;
+	int				map_index;
+}					t_entity;
 
 typedef struct		s_cam
 {
@@ -87,6 +107,8 @@ typedef struct		s_env
 {
 	t_win			*win;
 	t_cam			*cam;
+	t_tile			**map;
+	t_entity		**entities;
 	t_poke_data		**poke_db;
 	t_sprite		**sprite_bank;
 	int				mouse_x;
@@ -98,9 +120,9 @@ void				throw_error(char *str);
 void				*check_malloc(void *ret);
 
 t_win				*gen_mlx_window(void *mlx, char *title, int x, int y);
-void				new_img(t_win *win);
 
-void				gen_clear_img(t_win *win);
+void				new_img(t_win *win);
+void				gen_sprite_data(t_win *win);
 void				clear_img(t_win *win);
 
 t_cam				*gen_default_camera(void);
@@ -111,6 +133,8 @@ int					hex_mouse_hook(int button, int x, int y, void *env);
 int					hex_mouse_move_hook(int x, int y, void *env_ptr);
 int					hex_loop_hook(void *env_ptr);
 void				gen_view(t_env *env);
+t_tile				**gen_map(t_env *env);
+t_entity			**gen_entities(t_env *env);
 
 t_poke_data			**gen_pokemon_data(void	*mlx);
 t_sprite			**gen_sprite_bank(void *mlx);

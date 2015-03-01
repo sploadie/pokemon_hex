@@ -6,19 +6,20 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 17:12:34 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 19:21:50 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
 
-void	put_sprite_to_image(t_env *env, t_sprite *sprite, int x, int y)
+void	put_sprite_to_image(t_env *env, t_sprite *sprite, int id, int x, int y)
 {
 	int	i;
 	int	j;
-	int	*img_data =	env->win->img_data;
-	int	width =		env->win->width;
-	int	height =	env->win->height;
+	int	*img_data =		env->win->img_data;
+	int	*sprite_data =	env->win->sprite_data;
+	int	width =			env->win->width;
+	int	height =		env->win->height;
 
 	i = 0;
 	while (i < sprite->y)
@@ -27,26 +28,42 @@ void	put_sprite_to_image(t_env *env, t_sprite *sprite, int x, int y)
 		while (j < sprite->x)
 		{
 			if (((y + i) >= 0) && ((y + i) < height) && ((x + j) >= 0) && ((x + j) < width) && sprite->img_data[(sprite->x * i) + j] != 0)
+			{
 				img_data[((y + i) * height) + (x + j)] = sprite->img_data[(sprite->x * i) + j];
+				if (id)
+					sprite_data[((y + i) * height) + (x + j)] =	id;
+			}
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_tile(t_env *env, int sprite_address, int label, int x, int y)
+void	draw_map(t_env *env)
 {
-	int		tru_x;
-	int		tru_y;
-	char	point_str[20];
+	int			i;
+	int			total;
+	t_tile		**map;
+	t_entity	**entities;
+	t_sprite	**sprite_bank;
 
-	tru_x = env->cam->x + ((x - y) * 45);
-	tru_y = env->cam->y + ((x + y) * 22);
-	put_sprite_to_image(env, env->sprite_bank[sprite_address], tru_x, tru_y);
-	if (label)
+	map = env->map;
+	entities = env->entities;
+	sprite_bank = env->sprite_bank;
+	total = MAP_WIDTH * MAP_HEIGHT;
+	i = 0;
+	while (i < total)
 	{
-		sprintf(point_str, "(%d, %d)", x, y);
-		mlx_string_put(env->win->mlx, env->win->win, tru_x + 33 - (ft_strlen(point_str) * 3), tru_y + 25, 0xFFFFFF, point_str);
+		if (map[i]->type)
+			put_sprite_to_image(env, sprite_bank[map[i]->type], map[i]->id, env->cam->x + map[i]->sprite_x, env->cam->y + map[i]->sprite_y);
+		i++;
+	}
+	i = 0;
+	while (i < total)
+	{
+		if (map[i]->entity_id)
+			put_sprite_to_image(env, entities[map[i]->entity_id]->curr_sprite, map[i]->id, env->cam->x + map[i]->sprite_x - 15, env->cam->y + map[i]->sprite_y - 45);
+		i++;
 	}
 }
 
@@ -59,7 +76,7 @@ void	draw_tile(t_env *env, int sprite_address, int label, int x, int y)
 ** 4 - Right:	front flipped
 */
 
-void	draw_pokemon(t_env *env, int number, int direction, int x, int y)
+void	draw_pokemon(t_env *env, int number, int id, int direction, int x, int y)
 {
 	int		tru_x;
 	int		tru_y;
@@ -67,9 +84,9 @@ void	draw_pokemon(t_env *env, int number, int direction, int x, int y)
 	tru_x = (env->cam->x + ((x - y) * 45)) - 15;
 	tru_y = (env->cam->y + ((x + y) * 22)) - 45;
 	if (direction == 1)
-		put_sprite_to_image(env, env->poke_db[number]->sprite_f, tru_x, tru_y);
+		put_sprite_to_image(env, env->poke_db[number]->sprite_f, id, tru_x, tru_y);
 	else if (direction == 2)
-		put_sprite_to_image(env, env->poke_db[number]->sprite_b, tru_x, tru_y);
+		put_sprite_to_image(env, env->poke_db[number]->sprite_b, id, tru_x, tru_y);
 	else
 		throw_error("draw_pokemon: invalid direction");
 	mlx_string_put(env->win->mlx, env->win->win, tru_x + 48 - (ft_strlen(env->poke_db[number]->name) * 3), tru_y + 80, 0xFFFFFF, env->poke_db[number]->name);
@@ -79,21 +96,8 @@ void	gen_view(t_env *env)
 {
 	clear_img(env->win);
 	//Action
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < 10)
-	{
-		j = 0;
-		while (j < 10)
-		{
-			draw_tile(env, SPRITE_GRASS, 0, i, j);
-			j++;
-		}
-		i++;
-	}
-	put_sprite_to_image(env, env->sprite_bank[SPRITE_CURSOR], env->mouse_x, env->mouse_y);
+	draw_map(env);
+	put_sprite_to_image(env, env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
 	mlx_put_image_to_window(env->win->mlx, env->win->win, env->win->img, 0, 0);
 
 	// i = 0;

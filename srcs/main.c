@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:16 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 17:29:03 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/01 19:32:37 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ int			main(int argc, char **argv)
 	env.poke_db = gen_pokemon_data(env.win->mlx);
 	ft_putstr("Generating sprite bank...\n");
 	env.sprite_bank = gen_sprite_bank(env.win->mlx);
+	ft_putstr("Generating map...\n");
+	env.map = gen_map(&env);
+	ft_putstr("Generating entities...\n");
+	env.entities = gen_entities(&env);
 	ft_putstr("Generating camera...\n");
 	env.cam = gen_default_camera();
 	ft_putstr("Setting initial env values...\n");
@@ -64,8 +68,8 @@ int			main(int argc, char **argv)
 	env.update = 0;
 	ft_putstr("Initializing Default Image...\n");
 	new_img(env.win);
-	ft_putstr("Initializing Clear Image...\n");
-	gen_clear_img(env.win);
+	ft_putstr("Initializing Sprite Image Data...\n");
+	gen_sprite_data(env.win);
 	ft_putstr("Setting MLX Hook Funtions...\n");
 	mlx_key_hook(env.win->win, hex_key_hook, &env);
 	mlx_mouse_hook(env.win->win, hex_mouse_hook, &env);
