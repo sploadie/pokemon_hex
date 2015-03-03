@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 15:31:41 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/02 10:37:37 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int		hex_loop_hook(void *env_ptr)
 	if (displaying == 1)
 		return (0);
 	displaying = 1;
-	write(1, str, sprintf(str, "\033[2K\r%f seconds per frame...", (1.0f / ((double)(clock() - last_pass) / (double)CLOCKS_PER_SEC))));
+	write(1, str, sprintf(str, "\033[2K\r%f fps...", (1.0f / ((double)(clock() - last_pass) / (double)CLOCKS_PER_SEC))));
 
 	last_pass = clock();
 	gen_view(env);

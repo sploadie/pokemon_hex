@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 18:37:56 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 19:11:52 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/02 11:12:08 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ t_tile	**gen_map(t_env *env)
 	}
 	//TEST MAP
 	i = 0;
-	while (i < 10)
+	while (i < 20)//Modify at will
 	{
 		j = 0;
-		while (j < 10)
+		while (j < 20)//Modify at will
 		{
 			neomap[(i * MAP_WIDTH) + j]->type = SPRITE_GRASS;
 			j++;

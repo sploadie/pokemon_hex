@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 21:12:30 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 17:12:16 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 	if (button == 1)
 	{
 		temp_id = env->win->sprite_data[(y * env->win->width) + x];
-		if (temp_id < 0)
+		if (temp_id < 0) //Clicked on tile
 		{
 			map_index = (temp_id * -1) - 1;
 			clicked_tile = env->map[map_index];

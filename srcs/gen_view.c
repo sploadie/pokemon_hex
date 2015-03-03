@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 21:20:15 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/02 11:34:26 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	put_sprite_to_image(t_env *env, t_sprite *sprite, int id, int x, int y)
 		{
 			if (((y + i) >= 0) && ((y + i) < height) && ((x + j) >= 0) && ((x + j) < width) && sprite->img_data[(sprite->x * i) + j] != 0)
 			{
-				img_data[((y + i) * height) + (x + j)] = sprite->img_data[(sprite->x * i) + j];
+				img_data[((y + i) * width) + (x + j)] = sprite->img_data[(sprite->x * i) + j];
 				if (id)
-					sprite_data[((y + i) * height) + (x + j)] =	id;
+					sprite_data[((y + i) * width) + (x + j)] =	id;
 			}
 			j++;
 		}
