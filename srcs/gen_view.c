@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/02 11:34:26 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 18:50:24 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	put_sprite_to_image(t_env *env, t_sprite *sprite, int id, int x, int y)
 	int	height =		env->win->height;
 
 	i = 0;
-	while (i < sprite->y)
+	while (i < sprite->height)
 	{
 		j = 0;
-		while (j < sprite->x)
+		while (j < sprite->width)
 		{
-			if (((y + i) >= 0) && ((y + i) < height) && ((x + j) >= 0) && ((x + j) < width) && sprite->img_data[(sprite->x * i) + j] != 0)
+			if (((y + i) >= 0) && ((y + i) < height) && ((x + j) >= 0) && ((x + j) < width) && sprite->img_data[(sprite->width * i) + j] != 0)
 			{
-				img_data[((y + i) * width) + (x + j)] = sprite->img_data[(sprite->x * i) + j];
+				img_data[((y + i) * width) + (x + j)] = sprite->img_data[(sprite->width * i) + j];
 				if (id)
 					sprite_data[((y + i) * width) + (x + j)] =	id;
 			}
@@ -44,12 +44,10 @@ void	draw_map(t_env *env)
 	int				i;
 	int				total;
 	t_tile			**map;
-	t_entity		**entities;
 	t_sprite		**sprite_bank;
 	static clock_t	wiggle = 0;
 
 	map = env->map;
-	entities = env->entities;
 	sprite_bank = env->sprite_bank;
 	total = MAP_WIDTH * MAP_HEIGHT;
 	i = 0;
@@ -57,7 +55,7 @@ void	draw_map(t_env *env)
 	{
 		if (map[i]->type)
 		{
-			if (env->selected_entity && env->entities[env->selected_entity]->map_index == i)
+			if (env->selected_entity && env->selected_entity->tile == map[i])
 				put_sprite_to_image(env, sprite_bank[map[i]->type], map[i]->id, env->cam->x + map[i]->sprite_x, env->cam->y + map[i]->sprite_y + 2);
 			else
 				put_sprite_to_image(env, sprite_bank[map[i]->type], map[i]->id, env->cam->x + map[i]->sprite_x, env->cam->y + map[i]->sprite_y);
@@ -67,18 +65,22 @@ void	draw_map(t_env *env)
 	i = 0;
 	while (i < total)
 	{
-		if (clock() > wiggle)
+		if (map[i]->entity)
 		{
-			if (entities[map[i]->entity_id]->rand_y != 0)
-				entities[map[i]->entity_id]->rand_y = 0;
-			else if (rand() % 2)
-				entities[map[i]->entity_id]->rand_y = -2;
-			// entities[map[i]->entity_id]->rand_x = ((rand() % 5) - 2);
+			if (clock() > wiggle)
+			{
+				if (map[i]->entity->rand_y != 0)
+					map[i]->entity->rand_y = 0;
+				else if (rand() % 2)
+					map[i]->entity->rand_y = -2;
+			}
+			put_sprite_to_image(env,
+				map[i]->entity->poke_data->sprite[map[i]->entity->curr_sprite],
+				map[i]->id,
+				env->cam->x + map[i]->sprite_x - 15 + map[i]->entity->rand_x,
+				env->cam->y + map[i]->sprite_y - 45 + map[i]->entity->rand_y
+			);
 		}
-		if (map[i]->entity_id)
-			put_sprite_to_image(env, entities[map[i]->entity_id]->curr_sprite, map[i]->id
-				, env->cam->x + map[i]->sprite_x - 15 + entities[map[i]->entity_id]->rand_x
-				, env->cam->y + map[i]->sprite_y - 45 + entities[map[i]->entity_id]->rand_y);
 		i++;
 	}
 	if (clock() > wiggle)
@@ -94,21 +96,21 @@ void	draw_map(t_env *env)
 ** 4 - Right:	front flipped
 */
 
-void	draw_pokemon(t_env *env, int number, int id, int direction, int x, int y)
-{
-	int		tru_x;
-	int		tru_y;
+// void	draw_pokemon(t_env *env, int number, int id, int direction, int x, int y)
+// {
+// 	int		tru_x;
+// 	int		tru_y;
 
-	tru_x = (env->cam->x + ((x - y) * 45)) - 15 + ((rand() % 5) - 2);
-	tru_y = (env->cam->y + ((x + y) * 22)) - 45 + ((rand() % 5) - 2);
-	if (direction == 1)
-		put_sprite_to_image(env, env->poke_db[number]->sprite_f, id, tru_x, tru_y);
-	else if (direction == 2)
-		put_sprite_to_image(env, env->poke_db[number]->sprite_b, id, tru_x, tru_y);
-	else
-		throw_error("draw_pokemon: invalid direction");
-	// mlx_string_put(env->win->mlx, env->win->win, tru_x + 48 - (ft_strlen(env->poke_db[number]->name) * 3), tru_y + 80, 0xFFFFFF, env->poke_db[number]->name);
-}
+// 	tru_x = (env->cam->x + ((x - y) * 45)) - 15 + ((rand() % 5) - 2);
+// 	tru_y = (env->cam->y + ((x + y) * 22)) - 45 + ((rand() % 5) - 2);
+// 	if (direction == 1)
+// 		put_sprite_to_image(env, env->poke_db[number]->sprite_f, id, tru_x, tru_y);
+// 	else if (direction == 2)
+// 		put_sprite_to_image(env, env->poke_db[number]->sprite_b, id, tru_x, tru_y);
+// 	else
+// 		throw_error("draw_pokemon: invalid direction");
+// 	// mlx_string_put(env->win->mlx, env->win->win, tru_x + 48 - (ft_strlen(env->poke_db[number]->name) * 3), tru_y + 80, 0xFFFFFF, env->poke_db[number]->name);
+// }
 
 void	gen_view(t_env *env)
 {

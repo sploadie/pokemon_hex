@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 19:24:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/02 11:29:46 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 19:46:03 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,19 @@ t_entity	**gen_entities(t_env *env)
 	while (i < MAX_ENTITIES)
 	{
 		neoentities[i] = check_malloc(malloc(sizeof(t_entity)));
-		neoentities[i]->curr_sprite = NULL;
-		neoentities[i]->map_index = 0;
+		neoentities[i]->id = i;
+		neoentities[i]->curr_sprite = 0;
+		// neoentities[i]->x = 0;
+		// neoentities[i]->y = 0;
 		neoentities[i]->rand_x = 0;
 		neoentities[i]->rand_y = 0;
+		neoentities[i]->poke_data = NULL;
+		neoentities[i]->tile = NULL;
 		i++;
 	}
 	//TEST MAP
 	i = 0;
 	counter = 0;
-	int poke_id;
 	while (i < 20)//Modify at will
 	{
 		j = 0;
@@ -43,11 +46,10 @@ t_entity	**gen_entities(t_env *env)
 			if (counter < MAX_ENTITIES - 1 && rand() % 4 == 3)
 			{
 				counter++;
-				poke_id = (rand() % POKEMON_TOTAL) + 1;
-				neoentities[counter]->curr_sprite = env->poke_db[poke_id]->sprite_f;
-				neoentities[counter]->poke_id = poke_id;
-				neoentities[counter]->map_index = (i * MAP_WIDTH) + j;
-				env->map[(i * MAP_WIDTH) + j]->entity_id = counter;
+				neoentities[counter]->curr_sprite = rand() % 4;
+				neoentities[counter]->poke_data = env->poke_db[(rand() % POKEMON_TOTAL) + 1];
+				neoentities[counter]->tile = fetch_tile_at(env, j, i);
+				neoentities[counter]->tile->entity = neoentities[counter];
 			}
 			j++;
 		}

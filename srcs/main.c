@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:16 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 20:13:22 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 18:11:56 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int			main(int argc, char **argv)
 	env.sprite_bank = gen_sprite_bank(env.win->mlx);
 	ft_putstr("Generating map...\n");
 	env.map = gen_map(&env);
-	env.selected_entity = 0;
 	ft_putstr("Generating entities...\n");
 	env.entities = gen_entities(&env);
+	env.selected_entity = NULL;
 	ft_putstr("Generating camera...\n");
 	env.cam = gen_default_camera();
 	ft_putstr("Setting initial env values...\n");

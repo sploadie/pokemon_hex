@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/20 16:35:37 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/03/01 20:39:01 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/03/03 19:32:34 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,9 @@ SRC_COMPILED =	main.o \
 				gen_sprite_bank.o \
 				gen_sprite_data.o \
 				gen_map.o \
-				gen_entities.o
+				gen_entities.o \
+				tile_distance.o \
+				fetch_tile.o
 
 COMPILED =		$(SRC_COMPILED)
 

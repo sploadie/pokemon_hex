@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/01 21:02:03 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 19:44:40 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define POKEMON_SPRITE_SIZE 96
 # define MAP_WIDTH 100
 # define MAP_HEIGHT 100
-# define MAX_ENTITIES 100
+# define MAX_ENTITIES 1000
 
 /* SPRITE BANK MACROS */
 
@@ -41,14 +41,6 @@
 # define SPRITE_GRASS 1
 
 /* - */
-
-typedef struct		s_sprite
-{
-	void			*img;
-	int				*img_data;
-	int				x;
-	int				y;
-}					t_sprite;
 
 typedef struct		s_win
 {
@@ -65,37 +57,24 @@ typedef struct		s_win
 	int				img_endian;
 }					t_win;
 
-typedef struct		s_tile
-{
-	int				type;
-	int				id;
-	int				x;
-	int				y;
-	int				sprite_x;
-	int				sprite_y;
-	int				entity_id;
-}					t_tile;
-
-typedef struct		s_entity
-{
-	t_sprite		*curr_sprite;
-	int				rand_x;
-	int				rand_y;
-	int				poke_id;
-	int				map_index;
-}					t_entity;
-
 typedef struct		s_cam
 {
 	int				x;
 	int				y;
 }					t_cam;
 
+typedef struct		s_sprite
+{
+	void			*img;
+	int				*img_data;
+	int				width;
+	int				height;
+}					t_sprite;
+
 typedef struct		s_poke_data
 {
 	char			*name;
-	t_sprite		*sprite_f;
-	t_sprite		*sprite_b;
+	t_sprite		**sprite;
 	int				number;
 	int				hp;
 	int				attack;
@@ -106,6 +85,49 @@ typedef struct		s_poke_data
 	int				total;
 }					t_poke_data;
 
+/*
+** Tile ID is (it's index in env->map + 1) * -1
+**
+** Tile type corresponds  to it's sprite's index in the bank
+**
+** Tile x and y are it's grid x and y positions
+**
+** Tile sprite_x and sprite_y are it's pixel x and y positions
+*/
+
+typedef struct		s_tile
+{
+	int				type;
+	int				id;
+	int				x;
+	int				y;
+	int				sprite_x;
+	int				sprite_y;
+	struct s_entity	*entity;
+}					t_tile;
+
+/*
+** Entity ID is the same as it's index in env->entities
+**
+** Entity Sprites correspond to sprites in pokemon_data:
+** 0 - Left (Front)
+** 1 - Right (Back)
+** 2 - Up (Front Reverse)
+** 3 - Down (Back Reverse)
+*/
+
+typedef struct		s_entity
+{
+	int				id;
+	int				curr_sprite;
+	// int				x;
+	// int				y;
+	int				rand_x;
+	int				rand_y;
+	t_poke_data		*poke_data;
+	t_tile			*tile;
+}					t_entity;
+
 typedef struct		s_env
 {
 	t_win			*win;
@@ -114,7 +136,7 @@ typedef struct		s_env
 	t_entity		**entities;
 	t_poke_data		**poke_db;
 	t_sprite		**sprite_bank;
-	int				selected_entity;
+	t_entity		*selected_entity;
 	int				mouse_x;
 	int				mouse_y;
 	int				update;
@@ -137,7 +159,12 @@ int					hex_mouse_hook(int button, int x, int y, void *env);
 int					hex_mouse_move_hook(int x, int y, void *env_ptr);
 int					hex_loop_hook(void *env_ptr);
 void				gen_view(t_env *env);
+
 t_tile				**gen_map(t_env *env);
+int					tile_distance(t_tile *tile_a, t_tile *tile_b);
+t_tile				*fetch_tile(t_env *env, int tile_id);
+t_tile				*fetch_tile_at(t_env *env, int x, int y);
+
 t_entity			**gen_entities(t_env *env);
 
 t_poke_data			**gen_pokemon_data(void	*mlx);

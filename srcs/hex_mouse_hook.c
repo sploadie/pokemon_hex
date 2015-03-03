@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 17:12:16 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 19:08:04 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,6 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 	static int		rolling = 0;
 	char			str[200];
 	int				temp_id;
-	int				map_index;
-	t_entity		*curr_entity;
-	t_tile			*curr_tile;
 	t_tile			*clicked_tile;
 
 	env = env_ptr;
@@ -29,30 +26,26 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 		temp_id = env->win->sprite_data[(y * env->win->width) + x];
 		if (temp_id < 0) //Clicked on tile
 		{
-			map_index = (temp_id * -1) - 1;
-			clicked_tile = env->map[map_index];
+			clicked_tile = fetch_tile(env, temp_id);
 			write(1, str, sprintf(str, "Mouse: Left Clicked on tile (%d, %d) @ (%d, %d)\n", clicked_tile->x, clicked_tile->y, x, y));
-			if (clicked_tile->entity_id && clicked_tile->entity_id == env->selected_entity)
+			if (env->selected_entity && clicked_tile->entity == env->selected_entity)
 			{
-				curr_entity = env->entities[env->selected_entity];
-				if (curr_entity->curr_sprite == env->poke_db[curr_entity->poke_id]->sprite_f)
-					curr_entity->curr_sprite = env->poke_db[curr_entity->poke_id]->sprite_b;
-				else
-					curr_entity->curr_sprite = env->poke_db[curr_entity->poke_id]->sprite_f;
+				env->selected_entity->curr_sprite++;
+				if (env->selected_entity->curr_sprite > 3)
+					env->selected_entity->curr_sprite = 0;
+				env->selected_entity = NULL;
 			}
-			else if (clicked_tile->entity_id > 0)
+			else if (clicked_tile->entity)
 			{
-				write(1, str, sprintf(str, "Selected entity %d, named %s.\n", clicked_tile->entity_id, env->poke_db[env->entities[clicked_tile->entity_id]->poke_id]->name));
-				env->selected_entity = clicked_tile->entity_id;
+				write(1, str, sprintf(str, "Selected entity %d, named %s.\n", clicked_tile->entity->id, clicked_tile->entity->poke_data->name));
+				env->selected_entity = clicked_tile->entity;
 			}
-			else if (env->selected_entity)
+			else if (env->selected_entity && tile_distance(env->selected_entity->tile, clicked_tile) == 1)
 			{
-				curr_entity = env->entities[env->selected_entity];
-				curr_tile = env->map[curr_entity->map_index];
-				curr_tile->entity_id = 0;
-				curr_entity->map_index = map_index;
-				clicked_tile->entity_id = env->selected_entity;
-				env->selected_entity = 0;
+				env->selected_entity->tile->entity = NULL;
+				env->selected_entity->tile = clicked_tile;
+				clicked_tile->entity = env->selected_entity;
+				env->selected_entity = NULL;
 			}
 		}
 		else

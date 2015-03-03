@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 18:37:56 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/02 11:12:08 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/03 17:21:52 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_tile	**gen_map(t_env *env)
 			neomap[counter]->y = i;
 			neomap[counter]->sprite_x = ((j - i) * 45);
 			neomap[counter]->sprite_y = ((j + i) * 22);
-			neomap[counter]->entity_id = 0;
+			neomap[counter]->entity = NULL;
 			counter++;
 			j++;
 		}
