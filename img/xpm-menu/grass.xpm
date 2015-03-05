@@ -199,7 +199,7 @@ static char *grass[] = {
 "&X c #9BF51D",
 "*X c #9DFA1E",
 "=X c #A9946F",
-"-X c None",
+"-X c #000000",
 /* pixels */
 "-X-X-X-X-X-X-X-X-X-X-X-X-Xn h.h.-X-X-X-X-X-X-XC.e 3 -X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X",
 "-X-X-X-X-X-X-X-X-X-X-X-X-X-X6 D.n.-X-X-X-XD.^.z = p.p.*Xy.p.y.y.y.s.*Xs.s.*Xy.s.y.s.s.*Xy.-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X",
