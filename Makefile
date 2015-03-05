@@ -6,7 +6,7 @@
 #    By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/11/20 16:35:37 by tgauvrit          #+#    #+#              #
-#    Updated: 2015/03/03 19:32:34 by tgauvrit         ###   ########.fr        #
+#    Updated: 2015/03/05 17:06:10 by tgauvrit         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ HEADER =		pokemon_hex.h
 
 HEADER_DIR =	-I ./includes/ -I $(FT_LIB_DIR)
 
-MLX_LIBS =		-L/usr/X11/lib -lmlx -lXext -lX11
+MLX_LIBS =		-L./minilibx_macos -lmlx -I./minilibx_macos -framework OpenGL -framework AppKit
+				#-L/usr/X11/lib -lmlx -lXext -lX11
 
 LIBRARIES =		-L$(FT_LIB_DIR) -l$(FT_LIB_NAME) $(MLX_LIBS)
 

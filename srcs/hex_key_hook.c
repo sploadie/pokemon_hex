@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 17:14:16 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 17:22:41 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		hex_key_hook(int keycode, void *env_ptr)
 	t_env	*env;
 
 	env = env_ptr;
-	if (keycode == 65307)
+	if (keycode == 53)
 	{
 		ft_putstr("Esc\n");
 		exit(0);

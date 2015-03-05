@@ -6,14 +6,13 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 17:14:44 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 17:16:51 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef POKEMON_HEX_H
 # define POKEMON_HEX_H
 
-# include <mlx.h>
 # include <stdio.h>
 # include <time.h>
 # include <unistd.h>
@@ -21,6 +20,7 @@
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
+# include "mlx.h"
 # include "libft.h"
 
 # define DEF_TITLE "Pokemon Hex"
