@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 19:08:04 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 18:27:42 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,22 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 		if (button == 4)
 		{
 			// ft_putstr("Scroll Down ");
-			env->cam->y--;
+			env->cam->y -= 5;
 		}
 		else if (button == 5)
 		{
 			// ft_putstr("Scroll Up ");
-			env->cam->y++;
+			env->cam->y += 5;
 		}
 		else if (button == 6)
 		{
 			// ft_putstr("Scroll Right ");
-			env->cam->x--;
+			env->cam->x -= 5;
 		}
 		else if (button == 7)
 		{
 			// ft_putstr("Scroll Left ");
-			env->cam->x++;
+			env->cam->x += 5;
 		}
 		rolling = 0;
 	}
