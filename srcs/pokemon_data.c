@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 12:48:03 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 19:45:54 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 16:31:13 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -680,7 +680,7 @@ t_sprite	*flipped_sprite(void *mlx, t_sprite *norm)
 	flip = check_malloc(malloc(sizeof(t_sprite)));
 	flip->img = mlx_new_image(mlx, width, height);
 	if (flip->img == NULL)
-			throw_error("dammit");
+			throw_error("flipped_sprite");
 	flip->img_data = (int *)mlx_get_data_addr(flip->img, &i, &i, &i);
 	j = 0;
 	while (j < height)
@@ -698,53 +698,52 @@ t_sprite	*flipped_sprite(void *mlx, t_sprite *norm)
 	return (flip);
 }
 
-t_poke_data	**gen_pokemon_data(void	*mlx)
+t_poke_data	*gen_pokemon_data(void	*mlx)
 {
-	t_poke_data	**neodata;
+	t_poke_data	*neodata;
 	int			i;
 	int			temp;
 	char		front_file[] =	"./img/xpm-pokemon/sprite_XXX_front.xpm";
 	char		back_file[] =	"./img/xpm-pokemon/sprite_XXX_back.xpm";
 
-	neodata = check_malloc(malloc(sizeof(t_poke_data *) * (POKEMON_TOTAL + 1)));
-	neodata[0] = NULL;
+	neodata = check_malloc(malloc(sizeof(t_poke_data) * (POKEMON_TOTAL + 1)));
+	ft_bzero(&neodata[0], sizeof(t_poke_data));
 	i = 1;
 	while (i <= POKEMON_TOTAL)
 	{
-		neodata[i] = check_malloc(malloc(sizeof(t_poke_data)));
-		neodata[i]->sprite = check_malloc(malloc(sizeof(t_sprite) * 4));
+		neodata[i].sprite = check_malloc(malloc(sizeof(t_sprite) * 4));
 		/* Parse data */
-		neodata[i]->number		= ft_atoi(pokemon_text_data[i]);
-		neodata[i]->hp			= ft_atoi(pokemon_text_data[i] + 4);
-		neodata[i]->attack		= ft_atoi(pokemon_text_data[i] + 8);
-		neodata[i]->defense		= ft_atoi(pokemon_text_data[i] + 12);
-		neodata[i]->sp_attack	= ft_atoi(pokemon_text_data[i] + 16);
-		neodata[i]->sp_defense	= ft_atoi(pokemon_text_data[i] + 20);
-		neodata[i]->speed		= ft_atoi(pokemon_text_data[i] + 24);
-		neodata[i]->total		= ft_atoi(pokemon_text_data[i] + 28);
-		neodata[i]->name		= ft_strdup(pokemon_text_data[i] + 32);
+		neodata[i].number			= ft_atoi(pokemon_text_data[i]);
+		neodata[i].stats.hp			= ft_atoi(pokemon_text_data[i] + 4);
+		neodata[i].stats.attack		= ft_atoi(pokemon_text_data[i] + 8);
+		neodata[i].stats.defense	= ft_atoi(pokemon_text_data[i] + 12);
+		neodata[i].stats.sp_attack	= ft_atoi(pokemon_text_data[i] + 16);
+		neodata[i].stats.sp_defense	= ft_atoi(pokemon_text_data[i] + 20);
+		neodata[i].stats.speed		= ft_atoi(pokemon_text_data[i] + 24);
+		neodata[i].stat_total		= ft_atoi(pokemon_text_data[i] + 28);
+		neodata[i].name				= ft_strdup(pokemon_text_data[i] + 32);
 		/* Grab sprites */
 		/* Front */
 		ft_memcpy(front_file + 25, pokemon_text_data[i], 3);
-		neodata[i]->sprite[0] = check_malloc(malloc(sizeof(t_sprite)));
-		neodata[i]->sprite[0]->img = mlx_xpm_file_to_image(mlx, front_file, &(neodata[i]->sprite[0]->width), &(neodata[i]->sprite[0]->height));
-		if (neodata[i]->sprite[0]->img == NULL)
+		neodata[i].sprite[0] = check_malloc(malloc(sizeof(t_sprite)));
+		neodata[i].sprite[0]->img = mlx_xpm_file_to_image(mlx, front_file, &(neodata[i].sprite[0]->width), &(neodata[i].sprite[0]->height));
+		if (neodata[i].sprite[0]->img == NULL)
 			throw_error("gen_pokemon_data");
-		neodata[i]->sprite[0]->img_data = (int *)mlx_get_data_addr(neodata[i]->sprite[0]->img, &temp, &temp, &temp);
-		neodata[i]->sprite[0]->width = POKEMON_SPRITE_SIZE;
-		neodata[i]->sprite[0]->height = POKEMON_SPRITE_SIZE;
+		neodata[i].sprite[0]->img_data = (int *)mlx_get_data_addr(neodata[i].sprite[0]->img, &temp, &temp, &temp);
+		neodata[i].sprite[0]->width = POKEMON_SPRITE_SIZE;
+		neodata[i].sprite[0]->height = POKEMON_SPRITE_SIZE;
 		/* Back */
 		ft_memcpy(back_file + 25, pokemon_text_data[i], 3);
-		neodata[i]->sprite[2] = check_malloc(malloc(sizeof(t_sprite)));
-		neodata[i]->sprite[2]->img = mlx_xpm_file_to_image(mlx, back_file, &(neodata[i]->sprite[2]->width), &(neodata[i]->sprite[2]->height));
-		if (neodata[i]->sprite[2]->img == NULL)
+		neodata[i].sprite[2] = check_malloc(malloc(sizeof(t_sprite)));
+		neodata[i].sprite[2]->img = mlx_xpm_file_to_image(mlx, back_file, &(neodata[i].sprite[2]->width), &(neodata[i].sprite[2]->height));
+		if (neodata[i].sprite[2]->img == NULL)
 			throw_error("gen_pokemon_data");
-		neodata[i]->sprite[2]->img_data = (int *)mlx_get_data_addr(neodata[i]->sprite[2]->img, &temp, &temp, &temp);
-		neodata[i]->sprite[2]->width = POKEMON_SPRITE_SIZE;
-		neodata[i]->sprite[2]->height = POKEMON_SPRITE_SIZE;
-		//Below should be flipped
-		neodata[i]->sprite[1] = flipped_sprite(mlx, neodata[i]->sprite[0]);//FIXME
-		neodata[i]->sprite[3] = flipped_sprite(mlx, neodata[i]->sprite[2]);//FIXME
+		neodata[i].sprite[2]->img_data = (int *)mlx_get_data_addr(neodata[i].sprite[2]->img, &temp, &temp, &temp);
+		neodata[i].sprite[2]->width = POKEMON_SPRITE_SIZE;
+		neodata[i].sprite[2]->height = POKEMON_SPRITE_SIZE;
+		/* Flipped versions of above */
+		neodata[i].sprite[1] = flipped_sprite(mlx, neodata[i].sprite[0]);
+		neodata[i].sprite[3] = flipped_sprite(mlx, neodata[i].sprite[2]);
 		i++;
 	}
 	// //DEBUG

@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 19:44:40 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 17:14:44 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,23 @@ typedef struct		s_sprite
 	int				height;
 }					t_sprite;
 
-typedef struct		s_poke_data
+typedef struct		s_stats
 {
-	char			*name;
-	t_sprite		**sprite;
-	int				number;
 	int				hp;
 	int				attack;
 	int				defense;
 	int				sp_attack;
 	int				sp_defense;
 	int				speed;
-	int				total;
+}					t_stats;
+
+typedef struct		s_poke_data
+{
+	char			*name;
+	t_sprite		**sprite;
+	int				number;
+	t_stats			stats;
+	int				stat_total;
 }					t_poke_data;
 
 /*
@@ -120,11 +125,10 @@ typedef struct		s_entity
 {
 	int				id;
 	int				curr_sprite;
-	// int				x;
-	// int				y;
 	int				rand_x;
 	int				rand_y;
 	t_poke_data		*poke_data;
+	t_stats			stats;
 	t_tile			*tile;
 }					t_entity;
 
@@ -132,10 +136,10 @@ typedef struct		s_env
 {
 	t_win			*win;
 	t_cam			*cam;
-	t_tile			**map;
-	t_entity		**entities;
-	t_poke_data		**poke_db;
-	t_sprite		**sprite_bank;
+	t_tile			*map;
+	t_entity		*entities;
+	t_poke_data		*poke_db;
+	t_sprite		*sprite_bank;
 	t_entity		*selected_entity;
 	int				mouse_x;
 	int				mouse_y;
@@ -160,14 +164,14 @@ int					hex_mouse_move_hook(int x, int y, void *env_ptr);
 int					hex_loop_hook(void *env_ptr);
 void				gen_view(t_env *env);
 
-t_tile				**gen_map(t_env *env);
+t_tile				*gen_map(t_env *env);
 int					tile_distance(t_tile *tile_a, t_tile *tile_b);
 t_tile				*fetch_tile(t_env *env, int tile_id);
 t_tile				*fetch_tile_at(t_env *env, int x, int y);
 
-t_entity			**gen_entities(t_env *env);
+t_entity			*gen_entities(t_env *env);
 
-t_poke_data			**gen_pokemon_data(void	*mlx);
-t_sprite			**gen_sprite_bank(void *mlx);
+t_poke_data			*gen_pokemon_data(void	*mlx);
+t_sprite			*gen_sprite_bank(void *mlx);
 
 #endif

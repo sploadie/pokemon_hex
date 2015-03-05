@@ -6,21 +6,21 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 18:37:56 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 17:21:52 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 16:24:41 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
 
-t_tile	**gen_map(t_env *env)
+t_tile	*gen_map(t_env *env)
 {
-	t_tile	**neomap;
+	t_tile	*neomap;
 	int		counter;
 	int		i;
 	int		j;
 
 	(void)env;
-	neomap = check_malloc(malloc(sizeof(t_tile *) * (MAP_WIDTH * MAP_HEIGHT)));
+	neomap = check_malloc(malloc(sizeof(t_tile) * (MAP_WIDTH * MAP_HEIGHT)));
 	counter = 0;
 	i = 0;
 	while (i < MAP_HEIGHT)
@@ -28,14 +28,13 @@ t_tile	**gen_map(t_env *env)
 		j = 0;
 		while (j < MAP_WIDTH)
 		{
-			neomap[counter] = check_malloc(malloc(sizeof(t_tile)));
-			neomap[counter]->type = 0;
-			neomap[counter]->id = (counter + 1) * -1;
-			neomap[counter]->x = j;
-			neomap[counter]->y = i;
-			neomap[counter]->sprite_x = ((j - i) * 45);
-			neomap[counter]->sprite_y = ((j + i) * 22);
-			neomap[counter]->entity = NULL;
+			neomap[counter].type = 0;
+			neomap[counter].id = (counter + 1) * -1;
+			neomap[counter].x = j;
+			neomap[counter].y = i;
+			neomap[counter].sprite_x = ((j - i) * 45);
+			neomap[counter].sprite_y = ((j + i) * 22);
+			neomap[counter].entity = NULL;
 			counter++;
 			j++;
 		}
@@ -48,7 +47,7 @@ t_tile	**gen_map(t_env *env)
 		j = 0;
 		while (j < 20)//Modify at will
 		{
-			neomap[(i * MAP_WIDTH) + j]->type = SPRITE_GRASS;
+			neomap[(i * MAP_WIDTH) + j].type = SPRITE_GRASS;
 			j++;
 		}
 		i++;

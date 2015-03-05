@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/03 18:50:24 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/05 16:37:24 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ void	draw_map(t_env *env)
 {
 	int				i;
 	int				total;
-	t_tile			**map;
-	t_sprite		**sprite_bank;
+	t_tile			*map;
+	t_sprite		*sprite_bank;
 	static clock_t	wiggle = 0;
 
 	map = env->map;
@@ -53,32 +53,32 @@ void	draw_map(t_env *env)
 	i = 0;
 	while (i < total)
 	{
-		if (map[i]->type)
+		if (map[i].type)
 		{
-			if (env->selected_entity && env->selected_entity->tile == map[i])
-				put_sprite_to_image(env, sprite_bank[map[i]->type], map[i]->id, env->cam->x + map[i]->sprite_x, env->cam->y + map[i]->sprite_y + 2);
+			if (env->selected_entity && env->selected_entity->tile == &map[i])
+				put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y + 2);
 			else
-				put_sprite_to_image(env, sprite_bank[map[i]->type], map[i]->id, env->cam->x + map[i]->sprite_x, env->cam->y + map[i]->sprite_y);
+				put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y);
 		}
 		i++;
 	}
 	i = 0;
 	while (i < total)
 	{
-		if (map[i]->entity)
+		if (map[i].entity)
 		{
 			if (clock() > wiggle)
 			{
-				if (map[i]->entity->rand_y != 0)
-					map[i]->entity->rand_y = 0;
+				if (map[i].entity->rand_y != 0)
+					map[i].entity->rand_y = 0;
 				else if (rand() % 2)
-					map[i]->entity->rand_y = -2;
+					map[i].entity->rand_y = -2;
 			}
 			put_sprite_to_image(env,
-				map[i]->entity->poke_data->sprite[map[i]->entity->curr_sprite],
-				map[i]->id,
-				env->cam->x + map[i]->sprite_x - 15 + map[i]->entity->rand_x,
-				env->cam->y + map[i]->sprite_y - 45 + map[i]->entity->rand_y
+				map[i].entity->poke_data->sprite[map[i].entity->curr_sprite],
+				map[i].id,
+				env->cam->x + map[i].sprite_x - 15 + map[i].entity->rand_x,
+				env->cam->y + map[i].sprite_y - 45 + map[i].entity->rand_y
 			);
 		}
 		i++;
@@ -117,7 +117,7 @@ void	gen_view(t_env *env)
 	clear_img(env->win);
 	//Action
 	draw_map(env);
-	put_sprite_to_image(env, env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
+	put_sprite_to_image(env, &env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
 	mlx_put_image_to_window(env->win->mlx, env->win->win, env->win->img, 0, 0);
 
 	// //DEBUG
