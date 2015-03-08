@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 17:05:28 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 17:31:05 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 			}
 			else if (env->selected_entity && clicked_tile->entity && tile_distance(env->selected_entity->tile, clicked_tile) <= MOVEMENT)
 			{
-				write(1, str, sprintf(str, "%s attacked %s (HP: %d/%d) for %d damage!\n", env->selected_entity->poke_data->name, clicked_tile->entity->poke_data->name, clicked_tile->entity->stats.hp, clicked_tile->entity->poke_data->stats.hp, env->selected_entity->poke_data->stats.attack));
-				if ((clicked_tile->entity->stats.hp -= env->selected_entity->stats.attack) < 0)
+				write(1, str, sprintf(str, "%s attacked %s (HP: %d/%d) for %d damage!\n", env->selected_entity->poke_data->name, clicked_tile->entity->poke_data->name, clicked_tile->entity->stats.hp, clicked_tile->entity->poke_data->stats.hp, env->selected_entity->poke_data->stats.attack / 2));
+				if ((clicked_tile->entity->stats.hp -= env->selected_entity->stats.attack / 2) < 0)
 					clicked_tile->entity->stats.hp = 0;
+				if (clicked_tile->entity->stats.hp == 0)
+					clicked_tile->entity = NULL;
 				env->selected_entity = NULL;
 			}
 			else if (clicked_tile->entity)

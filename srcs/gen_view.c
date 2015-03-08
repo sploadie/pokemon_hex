@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 17:12:54 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 17:27:07 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	draw_hp_bar(t_env *env)
 		env->cam->y + tile->sprite_y + 31
 	);
 	if (entity->stats.hp > 0)
-		env->sprite_bank[SPRITE_HP_FILL].width = 80 / ((entity->poke_data->stats.hp * 80) / (entity->stats.hp * 80));
+		env->sprite_bank[SPRITE_HP_FILL].width = (int)floor(((double)entity->stats.hp / (double)entity->poke_data->stats.hp) * 80.0f);
 	else
 		env->sprite_bank[SPRITE_HP_FILL].width = 1;
 	put_sprite_to_image(env,
