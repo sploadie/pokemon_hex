@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 12:23:40 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 16:09:45 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 /* DEV MACROS */
 # define CLOCKS_PER_HALF (CLOCKS_PER_SEC / 2)
-# define MOVEMENT 1
+# define MOVEMENT 3
 
 /* SPRITE BANK MACROS */
 
@@ -44,6 +44,8 @@
 # define SPRITE_CURSOR 0
 # define SPRITE_GRASS 1
 # define SPRITE_SELECT 2
+# define SPRITE_HP_BAR 3
+# define SPRITE_HP_FILL 4
 
 /* - */
 
@@ -93,6 +95,7 @@ typedef struct		s_poke_data
 	int				number;
 	t_stats			stats;
 	int				stat_total;
+	int				attacks[4];
 }					t_poke_data;
 
 /*

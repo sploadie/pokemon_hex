@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 19:24:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 11:31:58 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 14:31:06 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ t_entity	*gen_entities(t_env *env)
 			{
 				counter++;
 				neoentities[counter].curr_sprite = rand() % 4;
-				neoentities[counter].poke_data = &env->poke_db[(rand() % POKEMON_TOTAL) + 1];
+				if (counter == 1)
+					neoentities[counter].poke_data = &env->poke_db[0];
+				else
+					neoentities[counter].poke_data = &env->poke_db[(rand() % POKEMON_TOTAL) + 1];
 				ft_memcpy(&neoentities[counter].stats, &neoentities[counter].poke_data->stats, sizeof(t_stats));
 				neoentities[counter].tile = fetch_tile_at(env, j, i);
 				neoentities[counter].tile->entity = &neoentities[counter];

@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 11:38:24 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 17:05:28 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,17 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 			write(1, str, sprintf(str, "Mouse: Left Clicked on tile (%d, %d) @ (%d, %d)\n", clicked_tile->x, clicked_tile->y, x, y));
 			if (env->selected_entity && clicked_tile->entity == env->selected_entity)
 			{
-				env->selected_entity->curr_sprite++;
-				if (env->selected_entity->curr_sprite > 3)
-					env->selected_entity->curr_sprite = 0;
+				if (env->selected_entity->id == 1)
+					env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 2;
+				else
+					env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 4;
+				env->selected_entity = NULL;
+			}
+			else if (env->selected_entity && clicked_tile->entity && tile_distance(env->selected_entity->tile, clicked_tile) <= MOVEMENT)
+			{
+				write(1, str, sprintf(str, "%s attacked %s (HP: %d/%d) for %d damage!\n", env->selected_entity->poke_data->name, clicked_tile->entity->poke_data->name, clicked_tile->entity->stats.hp, clicked_tile->entity->poke_data->stats.hp, env->selected_entity->poke_data->stats.attack));
+				if ((clicked_tile->entity->stats.hp -= env->selected_entity->stats.attack) < 0)
+					clicked_tile->entity->stats.hp = 0;
 				env->selected_entity = NULL;
 			}
 			else if (clicked_tile->entity)

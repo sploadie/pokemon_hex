@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 16:01:53 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 12:29:49 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 15:49:00 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,15 @@ t_sprite	*gen_sprite_bank(void *mlx)
 	if (neobank[SPRITE_SELECT].img == NULL)
 		throw_error("gen_sprite_bank: SPRITE_SELECT");
 	neobank[SPRITE_SELECT].img_data = (int *)mlx_get_data_addr(neobank[SPRITE_SELECT].img, &temp, &temp, &temp);
+	/* SPRITE_HP_BAR */
+	neobank[SPRITE_HP_BAR].img = mlx_xpm_file_to_image(mlx, "./img/xpm-menu/hp_bar.xpm", &(neobank[SPRITE_HP_BAR].width), &(neobank[SPRITE_HP_BAR].height));
+	if (neobank[SPRITE_HP_BAR].img == NULL)
+		throw_error("gen_sprite_bank: SPRITE_HP_BAR");
+	neobank[SPRITE_HP_BAR].img_data = (int *)mlx_get_data_addr(neobank[SPRITE_HP_BAR].img, &temp, &temp, &temp);
+	/* SPRITE_HP_FILL */
+	neobank[SPRITE_HP_FILL].img = mlx_xpm_file_to_image(mlx, "./img/xpm-menu/hp_fill.xpm", &(neobank[SPRITE_HP_FILL].width), &(neobank[SPRITE_HP_FILL].height));
+	if (neobank[SPRITE_HP_FILL].img == NULL)
+		throw_error("gen_sprite_bank: SPRITE_HP_FILL");
+	neobank[SPRITE_HP_FILL].img_data = (int *)mlx_get_data_addr(neobank[SPRITE_HP_FILL].img, &temp, &temp, &temp);
 	return (neobank);
 }
