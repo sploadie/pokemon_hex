@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/28 16:01:53 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 16:23:23 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 12:29:49 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,10 @@ t_sprite	*gen_sprite_bank(void *mlx)
 	if (neobank[SPRITE_GRASS].img == NULL)
 		throw_error("gen_sprite_bank: SPRITE_GRASS");
 	neobank[SPRITE_GRASS].img_data = (int *)mlx_get_data_addr(neobank[SPRITE_GRASS].img, &temp, &temp, &temp);
+	/* SPRITE_SELECT */
+	neobank[SPRITE_SELECT].img = mlx_xpm_file_to_image(mlx, "./img/xpm-menu/select_small.xpm", &(neobank[SPRITE_SELECT].width), &(neobank[SPRITE_SELECT].height));
+	if (neobank[SPRITE_SELECT].img == NULL)
+		throw_error("gen_sprite_bank: SPRITE_SELECT");
+	neobank[SPRITE_SELECT].img_data = (int *)mlx_get_data_addr(neobank[SPRITE_SELECT].img, &temp, &temp, &temp);
 	return (neobank);
 }

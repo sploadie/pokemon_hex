@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 18:27:42 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 11:38:24 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 				write(1, str, sprintf(str, "Selected entity %d, named %s.\n", clicked_tile->entity->id, clicked_tile->entity->poke_data->name));
 				env->selected_entity = clicked_tile->entity;
 			}
-			else if (env->selected_entity && tile_distance(env->selected_entity->tile, clicked_tile) == 1)
+			else if (env->selected_entity && tile_distance(env->selected_entity->tile, clicked_tile) <= MOVEMENT && env->selected_entity->tile != clicked_tile)
 			{
 				env->selected_entity->tile->entity = NULL;
 				env->selected_entity->tile = clicked_tile;

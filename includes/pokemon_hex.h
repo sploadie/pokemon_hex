@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:01 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 17:16:51 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 12:23:40 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,16 @@
 # define MAP_HEIGHT 100
 # define MAX_ENTITIES 1000
 
+/* DEV MACROS */
+# define CLOCKS_PER_HALF (CLOCKS_PER_SEC / 2)
+# define MOVEMENT 1
+
 /* SPRITE BANK MACROS */
 
 # define SPRITE_BANK_SIZE 10
 # define SPRITE_CURSOR 0
 # define SPRITE_GRASS 1
+# define SPRITE_SELECT 2
 
 /* - */
 

@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 18:03:49 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/08 12:45:03 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,43 @@ void	put_sprite_to_image(t_env *env, t_sprite *sprite, int id, int x, int y)
 	}
 }
 
+void	select_markers(t_env *env)
+{
+	t_tile	*main_tile;
+	t_tile	*temp_tile;
+	int		i;
+	int		j;
+
+	if (!env->selected_entity)
+		return ;
+	main_tile = env->selected_entity->tile;
+	i = 0;
+	j = 1;
+	while (i <= MOVEMENT)
+	{
+		while (j <= MOVEMENT)
+		{
+			if ((temp_tile = fetch_tile_at(env, main_tile->x + i, main_tile->y + j)) && temp_tile->type != 0)
+				put_sprite_to_image(env,
+					&env->sprite_bank[SPRITE_SELECT],
+					temp_tile->id,
+					env->cam->x + temp_tile->sprite_x + 12,
+					env->cam->y + temp_tile->sprite_y - 5
+				);
+			if ((temp_tile = fetch_tile_at(env, main_tile->x - i, main_tile->y - j)) && temp_tile->type != 0)
+				put_sprite_to_image(env,
+					&env->sprite_bank[SPRITE_SELECT],
+					temp_tile->id,
+					env->cam->x + temp_tile->sprite_x + 12,
+					env->cam->y + temp_tile->sprite_y - 5
+				);
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+}
+
 void	draw_map(t_env *env)
 {
 	int				i;
@@ -50,18 +87,24 @@ void	draw_map(t_env *env)
 	map = env->map;
 	sprite_bank = env->sprite_bank;
 	total = MAP_WIDTH * MAP_HEIGHT;
+	/* Tiles */
 	i = 0;
 	while (i < total)
 	{
 		if (map[i].type)
 		{
-			if (env->selected_entity && env->selected_entity->tile == &map[i])
-				put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y + 2);
-			else
-				put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y);
+			put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y);
+			// if (env->selected_entity && env->selected_entity->tile == &map[i])
+			// 	put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y + 2);
+			// else
+			// 	put_sprite_to_image(env, &sprite_bank[map[i].type], map[i].id, env->cam->x + map[i].sprite_x, env->cam->y + map[i].sprite_y);
 		}
 		i++;
 	}
+	/* Selection Markers */
+	if (((clock() / (CLOCKS_PER_SEC / 4)) % 4) != 0)
+		select_markers(env);
+	/* Entities */
 	i = 0;
 	while (i < total)
 	{
@@ -84,39 +127,15 @@ void	draw_map(t_env *env)
 		i++;
 	}
 	if (clock() > wiggle)
-		wiggle = clock() + CLOCKS_PER_SEC / 2;
+		wiggle = clock() + CLOCKS_PER_HALF;
 }
-
-/*
-** Facing:
-** 1 - Up:		back
-** 2 - Down:	front
-** TODO:
-** 3 - Left:	back flipped
-** 4 - Right:	front flipped
-*/
-
-// void	draw_pokemon(t_env *env, int number, int id, int direction, int x, int y)
-// {
-// 	int		tru_x;
-// 	int		tru_y;
-
-// 	tru_x = (env->cam->x + ((x - y) * 45)) - 15 + ((rand() % 5) - 2);
-// 	tru_y = (env->cam->y + ((x + y) * 22)) - 45 + ((rand() % 5) - 2);
-// 	if (direction == 1)
-// 		put_sprite_to_image(env, env->poke_db[number]->sprite_f, id, tru_x, tru_y);
-// 	else if (direction == 2)
-// 		put_sprite_to_image(env, env->poke_db[number]->sprite_b, id, tru_x, tru_y);
-// 	else
-// 		throw_error("draw_pokemon: invalid direction");
-// 	// mlx_string_put(env->win->mlx, env->win->win, tru_x + 48 - (ft_strlen(env->poke_db[number]->name) * 3), tru_y + 80, 0xFFFFFF, env->poke_db[number]->name);
-// }
 
 void	gen_view(t_env *env)
 {
 	clear_img(env->win);
 	//Action
 	draw_map(env);
+	// select_markers(env);
 	put_sprite_to_image(env, &env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
 	mlx_put_image_to_window(env->win->mlx, env->win->win, env->win->img, 0, 0);
 	mlx_do_sync(env->win->mlx);
