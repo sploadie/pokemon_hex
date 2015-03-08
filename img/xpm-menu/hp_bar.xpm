@@ -1,0 +1,19 @@
+/* XPM */
+static char *hp_bar[] = {
+/* columns rows colors chars-per-pixel */
+"94 7 6 1 ",
+"  c #B0A878",
+". c #104088",
+"X c #1048A8",
+"o c #D0C890",
+"O c #F8F0C8",
+"+ c #000000",
+/* pixels */
+"OOOOOO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO OOOOOO",
+" O Oo O                                                                                O oO O ",
+"+ + OoO................................................................................OoO + +",
+"++ O OOX.......X.......X.......X.......X.......X.......X.......X.......X.......X.......OO O ++",
+"++o + OXX.....XXX.....XXX.....XXX.....XXX.....XXX.....XXX.....XXX.....XXX.....XXX.....XO + o++",
+"++++ OOXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXXXX...XXOO ++++",
+"++++++OXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXXXXX.XXXO++++++"
+};
