@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 16:57:16 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/05 17:59:00 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/09 15:03:33 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			main(int argc, char **argv)
 	ft_putstr("Setting initial env values...\n");
 	env.mouse_x = 0;
 	env.mouse_y = 0;
+	env.mlx_text = NULL;
 	env.update = 0;
 	ft_putstr("Initializing Default Image...\n");
 	new_img(env.win);

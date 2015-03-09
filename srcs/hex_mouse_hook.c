@@ -6,7 +6,7 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 17:31:05 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/09 14:34:31 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ int				hex_mouse_hook(int button, int x, int y, void *env_ptr)
 			write(1, str, sprintf(str, "Mouse: Left Clicked on tile (%d, %d) @ (%d, %d)\n", clicked_tile->x, clicked_tile->y, x, y));
 			if (env->selected_entity && clicked_tile->entity == env->selected_entity)
 			{
-				if (env->selected_entity->id == 1)
-					env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 2;
-				else
-					env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 4;
+				env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 4;
+				/* Animated Player */
+				// if (env->selected_entity->id == 1)
+				// 	env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 2;
+				// else
+				// 	env->selected_entity->curr_sprite = (env->selected_entity->curr_sprite + 1) % 4;
+				/* - */
 				env->selected_entity = NULL;
 			}
 			else if (env->selected_entity && clicked_tile->entity && tile_distance(env->selected_entity->tile, clicked_tile) <= MOVEMENT)

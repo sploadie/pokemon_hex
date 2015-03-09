@@ -6,36 +6,35 @@
 /*   By: tgauvrit <tgauvrit@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/02/26 17:04:17 by tgauvrit          #+#    #+#             */
-/*   Updated: 2015/03/08 17:27:07 by tgauvrit         ###   ########.fr       */
+/*   Updated: 2015/03/09 15:31:49 by tgauvrit         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pokemon_hex.h"
 
-void	put_sprite_to_image(t_env *env, t_sprite *sprite, int id, int x, int y)
+void	add_text(t_env *env, char *str, int x, int y, int color, void (*to_free)())
 {
-	int	i;
-	int	j;
-	int	*img_data =		env->win->img_data;
-	int	*sprite_data =	env->win->sprite_data;
-	int	width =			env->win->width;
-	int	height =		env->win->height;
+	t_mlx_text	*neotext;
 
-	i = 0;
-	while (i < sprite->height)
+	neotext = check_malloc(malloc(sizeof(t_mlx_text)));
+	neotext->str = str;
+	neotext->x = x;
+	neotext->y = y;
+	neotext->color = color;
+	neotext->to_free = to_free;
+	neotext->next = env->mlx_text;
+	env->mlx_text = neotext;
+}
+
+void	draw_text_to_image(t_env *env)
+{
+	t_mlx_text	*text;
+	t_mlx_text	*temp;
+
+	text = env->mlx_text;
+	while (text != NULL)
 	{
-		j = 0;
-		while (j < sprite->width)
-		{
-			if (((y + i) >= 0) && ((y + i) < height) && ((x + j) >= 0) && ((x + j) < width) && sprite->img_data[(sprite->width * i) + j] != 0)
-			{
-				img_data[((y + i) * width) + (x + j)] = sprite->img_data[(sprite->width * i) + j];
-				if (id)
-					sprite_data[((y + i) * width) + (x + j)] =	id;
-			}
-			j++;
-		}
-		i++;
+		;//put string to window, then free, then move forward;
 	}
 }
 
@@ -95,8 +94,8 @@ void	draw_map(t_env *env)
 		i++;
 	}
 	/* Selection Markers */
-	if (((clock() / (CLOCKS_PER_SEC / 4)) % 4) > 1)
-		select_markers(env);
+	// if (((clock() / (CLOCKS_PER_SEC / 4)) % 4) > 1)
+	select_markers(env);
 	/* Entities */
 	i = 0;
 	while (i < total)
@@ -105,17 +104,23 @@ void	draw_map(t_env *env)
 		{
 			if (clock() > wiggle)
 			{
-				if (map[i].entity->id == 1)	/* Player */
-				{
-					map[i].entity->curr_sprite = (map[i].entity->curr_sprite + 2) % 4;
-				}
-				else						/* Pokemon */
-				{
-					if (map[i].entity->rand_y != 0)
-						map[i].entity->rand_y = 0;
-					else if (rand() % 2)
-						map[i].entity->rand_y = -2;
-				}
+				if (map[i].entity->rand_y != 0)
+					map[i].entity->rand_y = 0;
+				else if (rand() % 2)
+					map[i].entity->rand_y = -2;
+				/* Animated Player */
+				// if (map[i].entity->id == 1)	/* Player */
+				// {
+				// 	map[i].entity->curr_sprite = (map[i].entity->curr_sprite + 2) % 4;
+				// }
+				// else						/* Pokemon */
+				// {
+				// 	if (map[i].entity->rand_y != 0)
+				// 		map[i].entity->rand_y = 0;
+				// 	else if (rand() % 2)
+				// 		map[i].entity->rand_y = -2;
+				// }
+				/* - */
 			}
 			put_sprite_to_image(env,
 				map[i].entity->poke_data->sprite[map[i].entity->curr_sprite],
@@ -162,67 +167,8 @@ void	gen_view(t_env *env)
 	clear_img(env->win);
 	//Action
 	draw_map(env);
-	// select_markers(env);
 	draw_hp_bar(env);
 	put_sprite_to_image(env, &env->sprite_bank[SPRITE_CURSOR], 0, env->mouse_x, env->mouse_y);
 	mlx_put_image_to_window(env->win->mlx, env->win->win, env->win->img, 0, 0);
 	mlx_do_sync(env->win->mlx);
-
-	// //DEBUG
-	// char str[200];
-	// write(1, str, sprintf(str, "Mouse: (%d, %d)", env->mouse_x, env->mouse_y));
-	// //DEBUG
-
-	// i = 0;
-	// while (i < 10)
-	// {
-	// 	j = 0;
-	// 	while (j < 10)
-	// 	{
-	// 		if (rand() % 2)
-	// 			draw_pokemon(env, (rand() % POKEMON_TOTAL) + 1, 1, i, j);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-
-	// //Hex Terrain Test Start
-	// int counter = 0;
-	// int	i;
-	// int	j;
-	// int	x;
-	// int	y;
-	// int	tiles_across;
-	// int	center_x = 400;
-	// int	top_y = 78;
-	// i = 0;
-	// while (i < 11)
-	// {
-	// 	if (i < 6)
-	// 	{
-	// 		tiles_across = i + 6;
-	// 		x = center_x - (45 * i);
-	// 		y = top_y + (22 * i);
-	// 	}
-	// 	else
-	// 	{
-	// 		tiles_across = 16 - i;
-	// 		x = center_x - (45 * 5);
-	// 		y = top_y + (22 * 5) + (44 * (i - 5));
-	// 	}
-	// 	j = 0;
-	// 	while (j < tiles_across)
-	// 	{
-	// 		mlx_put_image_to_window(env->win->mlx, env->win->win, env->sprite_bank[SPRITE_GRASS]->img, x, y);
-	// 		//COUNTER
-	// 		mlx_string_put(env->win->mlx, env->win->win, x + 30, y + 25, 0xFFFFFF, ft_itoa(++counter));
-	// 		//COUNTER
-	// 		x += 45;
-	// 		y += 22;
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// //Hex Terrain Test End
-
 }
